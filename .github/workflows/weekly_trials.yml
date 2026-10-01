@@ -2,7 +2,7 @@ name: Weekly Clinical Trials Update
 
 on:
   schedule: 
-    - cron: "0 15 * * 6"
+    - cron: "0 15 * * 5"
   workflow_dispatch:
 
 jobs:
