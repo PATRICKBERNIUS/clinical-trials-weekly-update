@@ -24,16 +24,45 @@ def get_summary(trials_list):
     Briefing:"""
 
 
+    try:
+
+        message = client.messages.create(
+                    model = "claude-sonnet-5",
+                    max_tokens=10000,
+                    messages = [
+                        {"role": "user", "content": prompt}
+                    ]
+                )
 
 
-    message = client.messages.create(
-                model = "claude-sonnet-5",
-                max_tokens=10000,
-                messages = [
-                    {"role": "user", "content": prompt}
-                ]
-            )
+        full_summary = next(i.text for i in message.content if i.type == "text")
+        return full_summary
+    except Exception as e:
+        print(f"Warning: LLM summary failed: {e}")
+        return "No summmary today"
 
 
-    full_summary = next(i.text for i in message.content if i.type == "text")
-    return full_summary
+
+
+
+
+def save_llm_summary(summary, output_dir ="site"):
+
+    file_name = "summary.txt"
+
+
+    os.makedirs(output_dir, exist_ok=True)
+
+    p = os.path.join(output_dir, file_name)
+
+
+    with open(p, "w", encoding="utf-8") as f:
+        f.write(summary)
+
+    return p
+
+
+
+def load_summary(path="site/summary.txt"):
+    with open(path, "r", encoding="utf-8") as f:
+        return f.read()

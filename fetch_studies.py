@@ -24,7 +24,7 @@ def fetch_studies(url, params):
     response = requests.get(url, params=params)
 
     if response.status_code != 200:
-            raise RuntimeError(f"ClincialTrials.gov returned {r.status_code}: {r.text}")
+            raise RuntimeError(f"ClincialTrials.gov returned {response.status_code}: {response.text}")
 
     
     data = response.json()

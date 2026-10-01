@@ -2,7 +2,6 @@ import os
 import smtplib
 from email.mime.text import MIMEText
 from dotenv import load_dotenv
-import sys
 from llm_summary import load_summary
 
 
@@ -22,7 +21,7 @@ def build_email():
     """
 
     msg = MIMEText(message)
-    msg["Subject"] = "Daily News for Patrick"
+    msg["Subject"] = "Weekly Clincal Trials Update"
     msg["From"] = GMAIL_ADDRESS
     msg["To"] = GMAIL_ADDRESS
 
@@ -38,7 +37,6 @@ def send_email(msg):
 
 
 if __name__ == "__main__":
-    link = sys.argv[1]
-    test_msg = build_email(link)
+    test_msg = build_email()
     send_email(test_msg)
     print("Digest email sent")
